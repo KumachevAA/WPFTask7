@@ -1,0 +1,34 @@
+﻿<Window x:Class="WpfTask7._2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfTask7._2"
+        xmlns:converters="clr-namespace:WpfTask7._2.Converters"
+        mc:Ignorable="d"
+        Title="Задание 7.2" Height="450" Width="800">
+    <Window.Resources>
+        <converters:InputToBrushConverter x:Key="InputToBrushConverter"/>
+        <converters:CanInputConverter x:Key="CanInputConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBox Name="trolleyCount" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="5" Width="80">
+                <TextBox.Background>
+                    <Binding Converter="{StaticResource InputToBrushConverter}" Path="Text" ElementName="trolleyCount" />
+                </TextBox.Background>
+            </TextBox>
+
+            <Button Height="20" Content="Ok" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="5" Width="40">
+                <Button.IsEnabled>
+                    <Binding Converter="{StaticResource CanInputConverter}" Path="Text" ElementName="trolleyCount" />
+                </Button.IsEnabled>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
