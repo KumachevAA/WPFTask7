@@ -4,13 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTask7._2"
+        xmlns:viewmodels="clr-namespace:WpfTask7._2.ViewModels"
         xmlns:converters="clr-namespace:WpfTask7._2.Converters"
         mc:Ignorable="d"
         Title="Задание 7.2" Height="450" Width="800">
     <Window.Resources>
         <converters:InputToBrushConverter x:Key="InputToBrushConverter"/>
         <converters:CanInputConverter x:Key="CanInputConverter"/>
+        <converters:StringToIntConverter x:Key="StringToIntConverter"/>
     </Window.Resources>
+    <Window.DataContext>
+        <viewmodels:MainViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -18,13 +23,18 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <TextBox Name="trolleyCount" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="5" Width="80">
+            <TextBox Name="trolleyCount" Height="20" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="5" Width="80"
+                     IsEnabled="{Binding TrolleyNotCreated, Mode=OneWay}">
                 <TextBox.Background>
                     <Binding Converter="{StaticResource InputToBrushConverter}" Path="Text" ElementName="trolleyCount" />
                 </TextBox.Background>
             </TextBox>
 
-            <Button Height="20" Content="Ok" VerticalContentAlignment="Center" VerticalAlignment="Top" Margin="5" Width="40">
+            <Button Name="okBtn" Height="20" Content="Ok"
+                    VerticalContentAlignment="Center" VerticalAlignment="Top"
+                    Margin="5" Width="40"
+                    Command="{Binding CreateTrolleys}"
+                    CommandParameter="{Binding Converter={StaticResource StringToIntConverter}, Path=Text, ElementName=trolleyCount}">
                 <Button.IsEnabled>
                     <Binding Converter="{StaticResource CanInputConverter}" Path="Text" ElementName="trolleyCount" />
                 </Button.IsEnabled>
