@@ -6,19 +6,25 @@
         xmlns:local="clr-namespace:WpfTask7._2"
         xmlns:viewmodels="clr-namespace:WpfTask7._2.ViewModels"
         xmlns:converters="clr-namespace:WpfTask7._2.Converters"
+        xmlns:r="clr-namespace:WpfTask7._2.Rules"
         mc:Ignorable="d"
         Title="Задание 7.2" Height="450" Width="800">
     <Window.Resources>
         <converters:InputToBrushConverter x:Key="InputToBrushConverter"/>
         <converters:CanInputConverter x:Key="CanInputConverter"/>
         <converters:StringToIntConverter x:Key="StringToIntConverter"/>
+        <converters:ModelToViewConverter x:Key="ModelToViewConverter"/>
+        <ItemsPanelTemplate x:Key="WrapItems">
+            <WrapPanel />
+        </ItemsPanelTemplate>
     </Window.Resources>
     <Window.DataContext>
         <viewmodels:MainViewModel />
     </Window.DataContext>
-    <Grid>
+    <Grid Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -28,6 +34,13 @@
                 <TextBox.Background>
                     <Binding Converter="{StaticResource InputToBrushConverter}" Path="Text" ElementName="trolleyCount" />
                 </TextBox.Background>
+                <TextBox.Text>
+                    <Binding Path="TrolleyCount" Mode="OneWayToSource" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <r:TrolleyValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
             </TextBox>
 
             <Button Name="okBtn" Height="20" Content="Ok"
@@ -40,5 +53,12 @@
                 </Button.IsEnabled>
             </Button>
         </StackPanel>
+        <ItemsControl Grid.Row="1"
+                      ItemsSource=
+                      "{Binding Converter={StaticResource ModelToViewConverter},
+                      Path=Trolleys, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsPanel="{StaticResource WrapItems}"/>
+
+        <TextBlock Grid.Row="2" Text="{Binding Log}"/>
     </Grid>
 </Window>

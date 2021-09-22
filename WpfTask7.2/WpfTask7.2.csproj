@@ -56,9 +56,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\CreateTrolleysCommand.cs" />
+    <Compile Include="Converters\ModelToViewConverter.cs" />
+    <Compile Include="Converters\StatusToColorConverter.cs" />
     <Compile Include="Converters\StringToIntConverter.cs" />
+    <Compile Include="Rules\TrolleyValidationRule.cs" />
+    <Compile Include="TrolleyUpdater.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TrolleyViewModel.cs" />
+    <Compile Include="Views\TrolleyView.xaml.cs">
+      <DependentUpon>TrolleyView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,6 +80,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\TrolleyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\TrolleyModel.cs" />

@@ -12,6 +12,7 @@ namespace WpfTask7._2.Commands
     public class CreateTrolleysCommand : ICommand
     {
         private bool executed = false;
+        private TrolleyUpdater updater;
 
         private ObservableCollection<TrolleyModel> FillCollection { get; }
 
@@ -35,13 +36,14 @@ namespace WpfTask7._2.Commands
                 {
                     FillCollection.Add(new TrolleyModel
                     {
-                        Id = i
+                        Id = i + 1
                     });
                 }
             }
 
             executed = true;
             CanExecuteChanged?.Invoke(this, new EventArgs());
+            updater = new TrolleyUpdater(FillCollection);
         }
     }
 }

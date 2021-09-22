@@ -8,7 +8,7 @@ namespace WpfTask7._2.Converters
     public class InputToBrushConverter : IValueConverter
     {
         public static int min = 2;
-        public static int max = int.MaxValue;
+        public static int max = 60;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
