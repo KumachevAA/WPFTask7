@@ -59,8 +59,9 @@ namespace WpfTask7._2.ViewModels
         {
             TrolleyModel trolley = sender as TrolleyModel;
             DateTime moment = DateTime.Now;
+            string status = trolley.Status == Status.Running ? "выехал" : "вернулся";
 
-            Log += $"Троллейбус {trolley.Id} выехал в {moment}, на {moment - ParkCreated} позже открытия ({ParkCreated})" + Environment.NewLine;
+            Log += $"Троллейбус №{trolley.Id} {status} в {moment}, на {moment - ParkCreated} позже открытия ({ParkCreated})" + Environment.NewLine;
         }
 
         public MainViewModel()

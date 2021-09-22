@@ -11,20 +11,37 @@ namespace WpfTask7._2
     public class TrolleyUpdater
     {
         public ICollection<TrolleyModel> Trolleys { get; }
+        Random rng;
 
-        private async Task Live()
+        private Task Ride(TrolleyModel trolley)
         {
-            foreach (TrolleyModel model in Trolleys)
+            Thread.Sleep(10000);
+            trolley.Status = Status.Park;
+            return Task.CompletedTask;
+        }
+
+        private Task Live()
+        {
+            while (true)
             {
-                Thread.Sleep(2000);
-                model.Status = Status.Running;
+                Thread.Sleep(rng.Next(100, 1000));
+
+                TrolleyModel[] parked = Trolleys.Where(tr => tr.Status == Status.Park).ToArray();
+
+                if (!parked.Any())
+                    continue;
+
+                var random = parked[rng.Next(parked.Length)];
+                random.Status = Status.Running;
+                Task.Run(async () => await Ride(random));
             }
         }
 
         public TrolleyUpdater(ICollection<TrolleyModel> trolleys)
         {
             Trolleys = trolleys;
-            Task.Run(() => Live());
+            rng = new Random();
+            Task.Run(async() => await Live());
         }
     }
 }

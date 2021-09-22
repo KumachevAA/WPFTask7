@@ -59,6 +59,8 @@
                       Path=Trolleys, UpdateSourceTrigger=PropertyChanged}"
                       ItemsPanel="{StaticResource WrapItems}"/>
 
-        <TextBlock Grid.Row="2" Text="{Binding Log}"/>
+        <ScrollViewer Grid.Row="2">
+            <TextBlock Text="{Binding Log}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+        </ScrollViewer>
     </Grid>
 </Window>
